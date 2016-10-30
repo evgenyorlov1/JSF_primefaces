@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Database managment system</title>
+    </h:head>
+    <h:body>
+        <h3>Database managment system home page</h3>
+        <hr/>
+        <br/>                
+        Create database:<br/>
+        <h:form>
+            <h:inputText value="#{CreateDatabaseBean.databaseName}" 
+                        required="true" title="Enter database name"/>
+            <br/>
+            <h:commandButton value="Submit" action="#{CreateDatabaseBean.createDatabase()}" />
+        </h:form>
+        <br/>
+        Create table:<br/>
+        <h:form>
+            <h:selectOneListbox value="#{CreateTableBean.database}" title="Selet database" size="1">                
+                <f:selectItems value="#{CreateTableBean.databases}"/>
+            </h:selectOneListbox>
+            <br/>
+            <h:inputText value="#{CreateTableBean.table}" required="true" title="Enter table name"/>
+            <br/>
+            <h:inputText value="#{CreateTableBean.fields}" required="true" title="Enter table fields"/>
+            <br/>
+            <h:commandButton value="Submit" action="#{CreateTableBean.createTable()}"/>
+        </h:form>   
+        <br/>
+        Insert row:<br/>                
+        <h:form> 
+            <h:selectOneListbox value="#{InsertBean.database}" title="Selet database" size="1" 
+                                valueChangeListener="#{InsertBean.valueChanged}" onchange="submit()">                
+                <f:selectItems value="#{InsertBean.databases}"/>
+            </h:selectOneListbox>
+            <h:selectOneListbox value="#{InsertBean.table}" title="Selet table" size="1" >
+                <f:selectItems value="#{InsertBean.tables}" />                
+            </h:selectOneListbox>  
+            <br/>                    
+            <h:inputText value="#{InsertBean.keyValue}" required="true" title="Enter table fields"/>  
+            <br/>
+            <h:commandButton value="Submit" action="#{InsertBean.insert()}"/>
+        </h:form>                
+        <br/>
+        Delete database:<br/>
+        <h:form>
+            <h:inputText value="#{DropDatabaseBean.database}" title="Enter database name"/>
+            <br/>
+            <h:commandButton value="Submit" action="#{DropDatabaseBean.dropDatabase()}"/>
+        </h:form>
+        <br/>
+        Delete table:<br/>    
+        <h:form>
+            <h:selectOneListbox value="#{DropTableBean.database}" valueChangeListener="#{DropTableBean.valueChanged}" 
+                                onchange="submit()" title="Selet database" size="1">
+                <f:selectItems value="#{DropTableBean.databases}" />                
+            </h:selectOneListbox>            
+            <h:selectOneListbox value="#{DropTableBean.table}" title="Selet table" size="1" >
+                <f:selectItems value="#{DropTableBean.tables}" />                
+            </h:selectOneListbox>                
+            <br/>
+            <h:commandButton value="Submit" title="Press to delete table" action="#{DropTableBean.dropTable()}"/>
+        </h:form>
+        <br/>
+        Delete row:<br/>                   
+        <h:form>
+            <h:selectOneListbox value="#{RemoveBean.database}" valueChangeListener="#{RemoveBean.valueChanged}" 
+                                onchange="submit()" title="Selet database" size="1">
+                <f:selectItems value="#{RemoveBean.databases}"/>                           
+            </h:selectOneListbox>            
+            <h:selectOneListbox value="#{RemoveBean.table}" title="Selet table" size="1">
+                <f:selectItems value="#{RemoveBean.tables}"/>                
+            </h:selectOneListbox>                
+            <br/>
+            <h:inputText value="#{RemoveBean.id}" title="Input row _id"/>
+            <br/>
+            <h:commandButton value="Submit" action="#{RemoveBean.remove()}" title="Press to remove row"/>
+        </h:form>
+        <br/>            
+        Sort:<br/>            
+        <h:form>
+            <h:selectOneListbox value="#{SortBean.database}" valueChangeListener="#{SortBean.valueChanged}" 
+                                onchange="submit()" title="Selet database" size="1">
+                <f:selectItems value="#{SortBean.databases}" />                
+            </h:selectOneListbox>            
+            <h:selectOneListbox value="#{SortBean.table}" title="Selet table" size="1" 
+                                valueChangeListener="#{SortBean.valueChanged}" onchange="submit()">
+                <f:selectItems value="#{SortBean.tables}" />                
+            </h:selectOneListbox>     
+            <br/>
+            <h:inputText value="#{SortBean.keyOrder}" title="Enter Key=order"/>
+            <br/>
+            <br/>            
+            <p:dataTable binding="#{SortBean.myDataTable}" style="width: 500px;"/>                                  
+            <br/>
+            <h:commandButton value="Submit" action="#{SortBean.sort()}" />            
+        </h:form>                                                   
+                  
+    </h:body>
+</html>
+
